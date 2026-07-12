@@ -1,0 +1,41 @@
+{
+  "config": {
+    "scanner": {
+      "minPrice": 30,
+      "maxPrice": 300,
+      "minVolumeMultiplier": 1.5,
+      "minDeliveryPct": 35,
+      "minRsi": 50,
+      "maxRsi": 70,
+      "trendEma": true,
+      "maxRecommendations": 10,
+      "fillWithNearMisses": true,
+      "minBreakoutScore": 70,
+      "consolidationDays": 15,
+      "resistanceLookback": 20,
+      "maxDistToBreakoutPct": 3.0,
+      "requireEma200": false,
+      "minAdx": 0,
+      "minRiskReward": 1.2,
+      "minMovePct": {
+        "2d": 3.0,
+        "1w": 5.0,
+        "2w": 7.0,
+        "1m": 12.0
+      },
+      "capital": 100000,
+      "riskPerTradePct": 1.0,
+      "minRsRank": 60
+    },
+    "email": {
+      "enabled": false,
+      "smtpHost": "smtp.gmail.com",
+      "smtpPort": 587,
+      "smtpUser": "",
+      "smtpPass": "",
+      "toEmail": ""
+    },
+    "geminiApiKey": ""
+  },
+  "recommendations": []
+}

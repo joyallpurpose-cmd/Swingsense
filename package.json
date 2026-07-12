@@ -1,0 +1,16 @@
+{
+  "name": "swingsense-ai",
+  "version": "1.1.0",
+  "description": "SwingSense AI - Personal Stock Screener and Swing Trading Assistant",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.13",
+    "dotenv": "^16.4.5"
+  }
+}

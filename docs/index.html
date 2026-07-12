@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SwingSense AI</title>
+<meta name="theme-color" content="#16211C">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SwingSense">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F5F0; --card:#FFFFFF; --ink:#16211C; --ink-soft:#3C4A43;
+    --slate:#64706A; --line:#DCD9CE; --gain:#0B7A4B; --loss:#BF3B3B;
+    --marigold:#E39A1F; --marigold-deep:#8A5B08; --chip:#EFEDE4;
+  }
+  *{box-sizing:border-box} html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ *{transition:none!important;animation:none!important} }
+  body{margin:0;background:var(--paper);color:var(--ink);
+       font:15px/1.55 'Inter',system-ui,sans-serif;}
+  .mono{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;}
+  button{font:inherit;cursor:pointer}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--marigold);outline-offset:2px;}
+
+  /* masthead */
+  header{background:var(--ink);color:#F2F1EA;padding:14px 22px;
+         display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .brand{font-family:'Archivo',sans-serif;font-weight:800;font-size:19px;
+         letter-spacing:.04em;}
+  .brand em{color:var(--marigold);font-style:normal;}
+  .mood{font-family:'IBM Plex Mono',monospace;font-size:12px;padding:4px 10px;
+        border:1px solid rgba(255,255,255,.35);border-radius:3px;}
+  .mood.Bullish{color:#7FD8AC;border-color:#4C8A6B}
+  .mood.Bearish{color:#F2A0A0;border-color:#9A5B5B}
+  .mood.Neutral{color:#E8D9A0;border-color:#96854E}
+  #scanBtn{margin-left:auto;background:var(--marigold);color:var(--ink);
+           border:0;border-radius:3px;padding:9px 18px;font-weight:600;}
+  #scanBtn[disabled]{opacity:.55;cursor:default}
+
+  /* the day tape - contract-note strip */
+  .tape{border-top:3px double var(--line);border-bottom:3px double var(--line);
+        background:var(--card);padding:8px 22px;font-family:'IBM Plex Mono',monospace;
+        font-size:12.5px;color:var(--ink-soft);display:flex;gap:22px;flex-wrap:wrap;}
+  .tape b{color:var(--ink);font-weight:600}
+  .tape .g{color:var(--gain)} .tape .m{color:var(--marigold-deep)}
+
+  nav{display:flex;gap:4px;padding:14px 22px 0;}
+  nav button{background:none;border:0;border-bottom:2px solid transparent;
+             padding:8px 14px;color:var(--slate);font-weight:500;}
+  nav button.on{color:var(--ink);border-bottom-color:var(--marigold);}
+    .hz{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--marigold-deep);
+      border:1px solid #E5D9A8;background:#FBF4DE;border-radius:3px;padding:2px 7px;}
+  main{max-width:1100px;margin:0 auto;padding:18px 22px 60px;}
+
+  /* signal chits */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
+  .chit{background:var(--card);border:1px solid var(--line);border-radius:6px;
+        padding:16px;display:flex;flex-direction:column;gap:10px;}
+  .chit-head{display:flex;align-items:baseline;gap:10px;}
+  .sym{font-family:'Archivo',sans-serif;font-weight:700;font-size:21px;letter-spacing:.02em;}
+  .co{font-size:12px;color:var(--slate);flex:1;min-width:0;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;
+       padding:3px 8px;border-radius:3px;white-space:nowrap;}
+  .tag.A{background:var(--marigold);color:var(--ink);}
+  .tag.B{background:none;border:1px solid var(--line);color:var(--slate);}
+  .sector{font-size:12px;color:var(--slate);margin-top:-6px;}
+  .triplet{display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid var(--line);
+           border-radius:4px;overflow:hidden;text-align:center;}
+  .triplet div{padding:8px 4px;background:var(--chip);}
+  .triplet div+div{border-left:1px solid var(--line);}
+  .triplet label{display:block;font-size:10.5px;color:var(--slate);letter-spacing:.04em;}
+  .triplet .v{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:14px;}
+  .triplet .buy .v{color:var(--ink)} .triplet .tgt .v{color:var(--gain)}
+  .triplet .stp .v{color:var(--loss)}
+  .scoreline{display:flex;align-items:baseline;gap:12px;}
+  .bigscore{font-size:26px;font-weight:600;}
+  .bigscore small{font-size:12px;color:var(--slate);font-weight:400;}
+  .stars{color:var(--marigold);letter-spacing:2px;font-size:15px;}
+  .rr{margin-left:auto;font-size:12.5px;color:var(--ink-soft);font-weight:600;}
+  .quad{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);
+        border-radius:4px;overflow:hidden;text-align:center;}
+  .quad div{padding:8px 2px;background:var(--chip);}
+  .quad div+div{border-left:1px solid var(--line);}
+  .quad label{display:block;font-size:10px;color:var(--slate);letter-spacing:.04em;}
+  .quad .v{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13.5px;}
+  .quad .tgt .v{color:var(--gain)} .quad .stp .v{color:var(--loss)}
+  .meta{display:flex;justify-content:space-between;font-size:12px;color:var(--slate);}
+  .why{font-size:12.5px;color:var(--ink-soft);border-top:1px dashed var(--line);
+       padding-top:8px;white-space:pre-line;}
+  .watchplan{font-size:12.5px;background:#FBF4DE;border:1px solid #E5D9A8;
+             border-radius:5px;padding:8px 10px;}
+  .sizing{font-size:12.5px;background:#EDF5EF;border:1px solid #CBE3D2;
+          border-radius:5px;padding:8px 10px;}
+  .sizing .szn{color:var(--slate);font-size:11px;}
+  .intraday{font-size:12.5px;background:#EEF2FA;border:1px solid #C9D6EC;
+            border-radius:5px;padding:8px 10px;}
+  .summary{font-size:12.5px;font-style:italic;color:var(--ink-soft);
+           border-left:3px solid var(--marigold);padding-left:10px;}
+  .fails{color:var(--marigold-deep);}
+  .banner{background:#FBF4DE;border:1px solid #E5D9A8;border-radius:6px;
+          padding:14px 16px;margin-bottom:16px;font-weight:500;}
+  .hzhead{font-size:13px;color:var(--slate);margin-bottom:14px;
+          border-left:3px solid var(--marigold);padding-left:10px;}
+
+  /* tables */
+  table{width:100%;border-collapse:collapse;background:var(--card);
+        border:1px solid var(--line);border-radius:6px;overflow:hidden;font-size:13.5px;}
+  th{font-size:11.5px;letter-spacing:.05em;color:var(--slate);text-align:left;
+     padding:10px 12px;border-bottom:2px solid var(--line);font-weight:600;background:var(--chip);}
+  td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle;}
+  tr:last-child td{border-bottom:0}
+  .num{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;}
+  .pos{color:var(--gain);font-weight:600} .neg{color:var(--loss);font-weight:600}
+  .btn{background:var(--card);border:1px solid var(--line);border-radius:4px;
+       padding:6px 12px;font-size:13px;}
+  .btn:hover{border-color:var(--slate)}
+  .btn.primary{background:var(--ink);color:#F2F1EA;border-color:var(--ink);}
+
+  /* stat blocks */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:20px;}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:6px;
+        padding:14px;text-align:center;}
+  .stat .v{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;}
+  .stat .k{font-size:11.5px;color:var(--slate);letter-spacing:.04em;margin-top:2px;}
+
+  /* settings */
+  form{background:var(--card);border:1px solid var(--line);border-radius:6px;
+       padding:20px;max-width:640px;}
+  fieldset{border:0;padding:0;margin:0 0 20px;}
+  legend{font-family:'Archivo',sans-serif;font-weight:700;font-size:15px;margin-bottom:10px;}
+  .frow{display:grid;grid-template-columns:200px 1fr;gap:10px;align-items:center;margin-bottom:10px;}
+  .frow label{font-size:13.5px;color:var(--ink-soft);}
+  input[type=text],input[type=number],input[type=email],input[type=password]{
+    font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:4px;
+    background:var(--paper);width:100%;}
+  input:focus{border-color:var(--marigold);outline:none;}
+  .hint{font-size:12px;color:var(--slate);margin:4px 0 14px;}
+
+  /* logs drawer */
+  #logs{background:var(--ink);color:#C9D4CD;font-family:'IBM Plex Mono',monospace;
+        font-size:12px;border-radius:6px;padding:14px;max-height:280px;overflow:auto;
+        white-space:pre-wrap;display:none;margin-top:16px;}
+  @media (max-width:560px){
+    nav{overflow-x:auto;white-space:nowrap;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;}
+    nav button{padding:12px 14px;font-size:15px;}
+    .quad{grid-template-columns:repeat(2,1fr);}
+    .quad div:nth-child(3),.quad div:nth-child(4){border-top:1px solid var(--line);}
+    .quad div:nth-child(3){border-left:0;}
+    header{padding:12px 14px;} main{padding:14px 12px 60px;}
+    #scanBtn{padding:12px 16px;}
+  }
+  .toast{position:sticky;bottom:16px;background:var(--ink);color:#F2F1EA;
+         padding:10px 16px;border-radius:4px;display:none;width:fit-content;margin:16px auto 0;}
+
+  /* close dialog (in-flow) */
+  #closeBox{display:none;background:var(--card);border:1px solid var(--marigold);
+            border-radius:6px;padding:16px;margin-bottom:16px;}
+  #closeBox .frow{grid-template-columns:130px 1fr;}
+  select{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--paper);}
+
+  /* --- static (GitHub Pages) mode --- */
+  #scanBtn, #logs, #closeBox,
+  nav button[data-tab="settings"],
+  #positionsWrap button { display:none !important; }
+  .staticnote{font-size:11.5px;color:var(--slate);text-align:center;margin-top:18px;}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="brand">SWING<em>SENSE</em> AI</span>
+  <span id="moodChip" class="mood Neutral">MOOD —</span>
+  <button id="scanBtn" onclick="runScan()">Run scan</button>
+</header>
+
+<div class="tape" id="tape">
+  <span>Last scan <b id="tScanDate">—</b></span>
+  <span>Passed filters <b id="tPassed">—</b></span>
+  <span class="m">A-grade <b id="tAGrade">—</b></span>
+  <span>Watchlist <b id="tWatch">—</b></span>
+  <span>Open positions <b id="tOpen">—</b></span>
+</div>
+
+<nav>
+  <button class="on" data-tab="signals" data-hz="today" onclick="showHz('today')">Today</button>
+  <button data-tab="signals" data-hz="2d" onclick="showHz('2d')">2-day</button>
+  <button data-tab="signals" data-hz="1w" onclick="showHz('1w')">1-week</button>
+  <button data-tab="signals" data-hz="2w" onclick="showHz('2w')">2-week</button>
+  <button data-tab="signals" data-hz="1m" onclick="showHz('1m')">1-month</button>
+  <button data-tab="positions" onclick="showTab('positions')">Positions</button>
+  <button data-tab="performance" onclick="showTab('performance')">Performance</button>
+  <button data-tab="settings" onclick="showTab('settings')">Settings</button>
+</nav>
+
+<main>
+  <section id="tab-signals">
+    <div id="signalsWrap"><p style="color:var(--slate)">Loading…</p></div>
+  </section>
+
+  <section id="tab-positions" hidden>
+    <div id="closeBox">
+      <b id="closeSym"></b>
+      <div class="frow" style="margin-top:10px;"><label for="exitPrice">Exit price (Rs)</label>
+        <input type="number" id="exitPrice" step="0.05"></div>
+      <div class="frow"><label for="exitStatus">Result</label>
+        <select id="exitStatus">
+          <option value="TARGET_HIT">Target hit</option>
+          <option value="STOP_LOSS_HIT">Stop loss hit</option>
+          <option value="MANUAL_EXIT">Manual exit</option>
+        </select></div>
+      <button class="btn primary" onclick="confirmClose()">Close position</button>
+      <button class="btn" onclick="cancelClose()">Cancel</button>
+    </div>
+    <div id="positionsWrap"></div>
+  </section>
+
+  <section id="tab-performance" hidden><div id="perfWrap"></div></section>
+
+  <section id="tab-settings" hidden>
+    <form onsubmit="saveConfig(event)">
+      <fieldset>
+        <legend>Screening rules</legend>
+        <div class="frow"><label for="minPrice">Min price (Rs)</label><input type="number" id="minPrice"></div>
+        <div class="frow"><label for="maxPrice">Max price (Rs)</label><input type="number" id="maxPrice"></div>
+        <div class="frow"><label for="minRsi">RSI minimum</label><input type="number" id="minRsi"></div>
+        <div class="frow"><label for="maxRsi">RSI maximum</label><input type="number" id="maxRsi"></div>
+        <div class="frow"><label for="minVolumeMultiplier">Volume vs 20-day avg (x)</label><input type="number" step="0.1" id="minVolumeMultiplier"></div>
+        <div class="frow"><label for="minDeliveryPct">Min delivery %</label><input type="number" id="minDeliveryPct"></div>
+        <div class="frow"><label for="maxRecommendations">Stocks per day</label><input type="number" id="maxRecommendations"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Breakout model</legend>
+        <div class="frow"><label for="minBreakoutScore">Min score for A-grade (0-100)</label><input type="number" id="minBreakoutScore"></div>
+        <div class="frow"><label for="consolidationDays">Consolidation window (days)</label><input type="number" id="consolidationDays"></div>
+        <div class="frow"><label for="resistanceLookback">Resistance lookback (days)</label><input type="number" id="resistanceLookback"></div>
+        <div class="frow"><label for="maxDistToBreakoutPct">Near-breakout distance (%)</label><input type="number" step="0.5" id="maxDistToBreakoutPct"></div>
+        <div class="frow"><label for="requireEma200">Require EMA50 &gt; EMA200</label><input type="checkbox" id="requireEma200" style="width:auto;justify-self:start"></div>
+        <div class="frow"><label for="minAdx">Min ADX (0 = off)</label><input type="number" id="minAdx"></div>
+        <div class="frow"><label for="minRsRank">Min RS Rank (0 = off)</label><input type="number" id="minRsRank"></div>
+      </fieldset>
+      <fieldset>
+        <legend>Money &amp; sizing</legend>
+        <div class="frow"><label for="capital">Trading capital (Rs)</label><input type="number" id="capital"></div>
+        <div class="frow"><label for="riskPerTradePct">Risk per trade (%)</label><input type="number" step="0.1" id="riskPerTradePct"></div>
+        <p class="hint">Cards suggest share quantity so one stopped-out trade loses only this %% of capital.</p>
+        <div class="frow"><label for="mm2d">Min potential %% (2-day)</label><input type="number" step="0.5" id="mm2d"></div>
+        <div class="frow"><label for="mm1w">Min potential %% (1-week)</label><input type="number" step="0.5" id="mm1w"></div>
+        <div class="frow"><label for="mm2w">Min potential %% (2-week)</label><input type="number" step="0.5" id="mm2w"></div>
+        <div class="frow"><label for="mm1m">Min potential %% (1-month)</label><input type="number" step="0.5" id="mm1m"></div>
+        <p class="hint">A stock only appears if its Target-2 offers at least this move. Higher = fewer, more volatile candidates.</p>
+      </fieldset>
+      <fieldset>
+        <legend>Risk</legend>
+        <div class="frow"><label for="minRiskReward">Min risk:reward (T1)</label><input type="number" step="0.05" id="minRiskReward"></div>
+        <p class="hint">Rule changes apply from the next scan. No code edits needed.</p>
+      </fieldset>
+      <fieldset>
+        <legend>Email delivery</legend>
+        <div class="frow"><label for="emailEnabled">Enabled</label><input type="checkbox" id="emailEnabled" style="width:auto;justify-self:start"></div>
+        <div class="frow"><label for="toEmail">Send to</label><input type="email" id="toEmail"></div>
+        <div class="frow"><label for="smtpHost">SMTP host</label><input type="text" id="smtpHost"></div>
+        <div class="frow"><label for="smtpPort">SMTP port</label><input type="number" id="smtpPort"></div>
+        <div class="frow"><label for="smtpUser">SMTP user</label><input type="text" id="smtpUser"></div>
+        <p class="hint">The SMTP password lives in the .env file (SMTP_PASS), not here — safer than storing it in the browser or data.json.</p>
+        <button type="button" class="btn" onclick="testEmail()">Send test email</button>
+      </fieldset>
+      <fieldset>
+        <legend>AI ranking</legend>
+        <div class="frow"><label for="geminiApiKey">Gemini API key</label><input type="password" id="geminiApiKey" placeholder="optional — heuristic used if empty"></div>
+        <p class="hint">Prefer GEMINI_API_KEY in .env. A key pasted here is stored on this machine only.</p>
+      </fieldset>
+      <button class="btn primary" type="submit">Save settings</button>
+    </form>
+  </section>
+
+  <div id="logs" role="log" aria-live="polite"></div>
+  <div class="toast" id="toast"></div>
+<div class="staticnote">Read-only view published from the scanner. Run scans and close positions from the PC app.</div>
+</main>
+
+<script>
+let RECS = [], CONFIG = {}, closingId = null, pollTimer = null;
+
+const $ = id => document.getElementById(id);
+const rup = n => 'Rs ' + Number(n).toFixed(2);
+const pct = n => (n >= 0 ? '+' : '') + Number(n).toFixed(2) + '%';
+
+function toast(msg){ const t=$('toast'); t.textContent=msg; t.style.display='block';
+  setTimeout(()=>t.style.display='none', 3500); }
+
+let HZ = 'today';
+const HZ_INFO = {
+  'today': ["today's actionable signals", 'every A-grade across all horizons, best score first - the buy list'],
+  '2d': ['1-2 day momentum bursts', 'broke resistance today on heavy volume - fastest, riskiest trades'],
+  '1w': ['3-5 day setups', 'pressing against resistance with volume - breakout imminent or just started'],
+  '2w': ['5-10 day swing breakouts', 'tight consolidations near highs - the classic swing setup'],
+  '1m': ['15-25 day trend rides', 'EMA-aligned market leaders - slower, larger moves'],
+};
+function showTab(name){
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',
+    b.dataset.tab===name && (name!=='signals' || b.dataset.hz===HZ)));
+  ['signals','positions','performance','settings'].forEach(t=>$('tab-'+t).hidden = t!==name);
+}
+function showHz(hz){ HZ = hz; showTab('signals'); renderSignals(); }
+
+function noServer(detail){
+  $('signalsWrap').innerHTML = `<div class="banner">
+    <b>The app can't reach its server.</b><br><br>
+    ${detail}<br><br>
+    1. Open a terminal in the swingsense folder<br>
+    2. Run <span class="mono">npm start</span> and leave it running<br>
+    3. Open <a href="http://localhost:5000"><b>http://localhost:5000</b></a> in the browser<br><br>
+    Opening dist/index.html as a file will always show this message —
+    the address bar must say <b>localhost:5000</b>, not File.</div>`;
+}
+
+window.STATIC_MODE = true;
+async function loadAll(){
+  try {
+    const db = await fetch('./data.json?t=' + Date.now()).then(r=>r.json());
+    RECS = db.recommendations || [];
+    CONFIG = db.config || {};
+    renderTape(db.lastScan || null);
+    renderSignals(); renderPositions(); renderPerformance();
+  } catch(e){
+    $('signalsWrap').innerHTML =
+      '<div class="banner">Could not load data.json - has a scan been published yet?</div>';
+  }
+}
+
+function renderTape(ls){
+  const latest = RECS.length ? RECS.map(r=>r.date).sort().pop() : null;
+  const todays = RECS.filter(r=>r.date===latest);
+  $('tScanDate').textContent = ls ? ls.date : (latest || 'never');
+  $('tPassed').textContent = ls ? ls.passed : '—';
+  $('tAGrade').textContent = todays.filter(r=>r.grade==='A').length;
+  $('tWatch').textContent  = todays.filter(r=>r.grade==='B').length;
+  $('tOpen').textContent   = RECS.filter(r=>r.status==='OPEN').length;
+  const mood = ls ? ls.mood : (todays[0] ? todays[0].marketMood : null);
+  const chip = $('moodChip');
+  chip.textContent = 'MOOD ' + (mood || '—').toUpperCase();
+  chip.className = 'mood ' + (mood || 'Neutral');
+}
+
+const HOLD_TEXT = {'2d':'1-2 trading days','1w':'3-5 trading days',
+                    '2w':'5-10 trading days','1m':'15-25 trading days'};
+function addTradingDays(iso, n){
+  const d = new Date(iso + 'T00:00:00');
+  while (n > 0){ d.setDate(d.getDate()+1); if (d.getDay()%6) n--; }
+  return d.toISOString().slice(0,10);
+}
+
+function sizing(r){
+  const cap = +(CONFIG.scanner&&CONFIG.scanner.capital) || 100000;
+  const riskPct = +(CONFIG.scanner&&CONFIG.scanner.riskPerTradePct) || 1.0;
+  const entry = r.closePrice, stop = r.stopLoss;
+  const perShareRisk = Math.max(entry - stop, 0.01);
+  let qty = Math.floor((cap * riskPct/100) / perShareRisk);
+  if (qty * entry > cap) qty = Math.floor(cap / entry);   // never exceed capital
+  if (qty < 1) return `<div class="sizing">Position too small for your capital settings — raise capital or risk %% in Settings.</div>`;
+  const invest = qty * entry;
+  const riskAmt = qty * perShareRisk;
+  const t1v = (r.target1 ?? r.target);
+  const p1 = qty * (t1v - entry);
+  const p1pct = ((t1v - entry) / entry * 100).toFixed(1);
+  const p2 = r.target2 != null ? qty * (r.target2 - entry) : null;
+  const p2pct = r.target2 != null ? ((r.target2 - entry) / entry * 100).toFixed(1) : null;
+  return `<div class="sizing">&#8377; <b>Buy ~${qty} shares</b> = Rs ${invest.toLocaleString('en-IN',{maximumFractionDigits:0})}
+    &nbsp;·&nbsp; risk Rs ${riskAmt.toLocaleString('en-IN',{maximumFractionDigits:0})}
+    &nbsp;·&nbsp; T1 profit <b class="pos">Rs ${p1.toLocaleString('en-IN',{maximumFractionDigits:0})} (+${p1pct}%)</b>${
+    p2!=null?` · T2 <b class="pos">Rs ${p2.toLocaleString('en-IN',{maximumFractionDigits:0})} (+${p2pct}%)</b>`:''}
+    <span class="szn">(${riskPct}% risk on Rs ${cap.toLocaleString('en-IN')} capital)</span></div>`;
+}
+
+function intradayPlan(r){
+  if (r.horizon !== '2d' || r.grade !== 'A') return '';
+  const entry = r.closePrice;
+  const atr = Math.max((entry - r.stopLoss) / 1.5, entry * 0.005); // 2d stop = 1.5xATR
+  const trig = Math.max(r.resistance || entry, entry) * 1.002;
+  const dStop = entry - 0.6 * atr;
+  const dTgt = entry + 1.0 * atr;
+  return `<div class="intraday">&#9728; <b>Same-day option</b> (buy morning, sell evening):
+    enter only if it crosses <b class="num">Rs ${trig.toFixed(1)}</b> in the first hour on strong volume ·
+    day stop <b class="num">Rs ${dStop.toFixed(1)}</b> · book by 3:15 PM near <b class="num">Rs ${dTgt.toFixed(1)}</b>
+    (+${((dTgt-entry)/entry*100).toFixed(1)}%). Skip if it gaps up over 2% at open.</div>`;
+}
+
+function chit(r){
+  const score = r.breakoutScore ?? r.confidenceScore ?? 0;
+  const stars = '★'.repeat(r.stars||Math.max(1,Math.floor(score/20))) ;
+  const t1 = r.target1 ?? r.target, t2 = r.target2;
+  const rr = r.riskReward != null
+    ? `<span title="Risk:Reward - reward to Target 1 per rupee risked to the stop. 1.25 = you make 1.25x what you risk.">R:R ${Number(r.riskReward).toFixed(2)}</span>` : '';
+  const res = r.distToResistancePct != null
+    ? (r.distToResistancePct <= 0
+       ? `broke resistance ${Number(r.resistance).toFixed(1)}`
+       : `${Number(r.distToResistancePct).toFixed(1)}% below resistance ${Number(r.resistance).toFixed(1)}`)
+    : '';
+  const evidence = (r.aiExplanation||'').split('\n').filter(Boolean)
+    .map(l=>`<div>&#10003; ${l}</div>`).join('');
+  const fails = (r.failedFilters||[]).length
+    ? `<div class="why fails">Missing before entry: ${r.failedFilters.join('; ')}</div>` : '';
+  const watchPlan = (r.grade==='B' && r.watchUntil)
+    ? `<div class="watchplan">&#9203; Watch until <b>${r.watchUntil}</b> &mdash; enter only if it closes above
+       <b class="num">Rs ${Number(r.triggerAbove ?? r.resistance).toFixed(1)}</b> on 1.5x+ volume
+       (it will turn A-grade here automatically). Stop watching if it closes below
+       <b class="num">Rs ${Number(r.invalidBelow ?? r.stopLoss).toFixed(1)}</b> or the date passes.</div>` : '';
+  return `<div class="chit">
+    <div class="chit-head">
+      <span class="sym">${r.symbol}</span>
+      <span class="co">${r.companyName||''}</span>
+      <span class="hz">${r.horizonLabel||'1 week'}</span>
+      <span class="tag ${r.grade}">${r.grade==='A' ? (r.gradeLabel||'A')+'-GRADE' : 'WATCH'+(r.gradeLabel?' ('+r.gradeLabel+')':'')}</span>
+    </div>
+    <div class="sector">${r.sector||''} · <b>hold ${HOLD_TEXT[r.horizon]||r.holdingPeriod}</b>${
+      r.grade==='A' && r.maxHoldDays ? ` · auto-exit by <b>${addTradingDays(r.date, r.maxHoldDays)}</b>` : ''} · risk ${r.riskRating}
+      ${r.potentialPct!=null?` · potential to T2 <b class="num">+${Number(r.potentialPct).toFixed(1)}%</b>`:''}</div>
+    <div class="scoreline">
+      <span class="bigscore num">${score}<small>/100</small></span>
+      <span class="stars" aria-label="${r.stars||0} of 5 stars">${stars}</span>
+      <span class="rr num">${rr}</span>
+    </div>
+    <div class="quad">
+      <div class="buy"><label>BUY ZONE</label><span class="v">${r.buyZone}</span></div>
+      <div class="stp"><label>STOP</label><span class="v">${Number(r.stopLoss).toFixed(1)}</span></div>
+      <div class="tgt"><label>TARGET 1</label><span class="v">${Number(t1).toFixed(1)}</span></div>
+      <div class="tgt"><label>TARGET 2</label><span class="v">${t2!=null?Number(t2).toFixed(1):'—'}</span></div>
+    </div>
+    <div class="meta"><span>Close ${rup(r.closePrice)}</span><span>${res}</span></div>
+    ${sizing(r)}
+    ${intradayPlan(r)}
+    ${r.summary?`<div class="summary">${r.summary}</div>`:''}
+    <div class="why">${evidence}</div>
+    ${fails}
+    ${watchPlan}
+  </div>`;
+}
+
+function renderSignals(){
+  const wrap = $('signalsWrap');
+  if (!RECS.length){
+    wrap.innerHTML = `<div class="banner">No scans yet. Press <b>Run scan</b> — the first run downloads ~1 year of NSE history and takes a few minutes.</div>`;
+    return;
+  }
+  const latest = RECS.map(r=>r.date).sort().pop();
+  const todays = RECS.filter(r=>r.date===latest &&
+                     (HZ==='today' ? r.grade==='A' : (r.horizon||'2w')===HZ))
+                     .sort((a,b)=> a.grade!==b.grade ? (a.grade==='A'?-1:1)
+                       : (b.breakoutScore??b.confidenceScore??0)-(a.breakoutScore??a.confidenceScore??0));
+  const [title, desc] = HZ_INFO[HZ];
+  const aCount = todays.filter(r=>r.grade==='A').length;
+  let html = `<div class="hzhead"><b>${title}</b> — ${desc}. Each stock appears on exactly one tab.</div>`;
+  if (!todays.length)
+    html += `<div class="banner">${HZ==='today'
+      ? 'No A-grade signals today across any horizon. No trade is a valid outcome — check the horizon tabs for setups still forming.'
+      : `No ${title} today — the market didn't produce this setup type. Check the other tabs.`}</div>`;
+  else if (aCount===0)
+    html += `<div class="banner">No A-grade ${title} today. Watch candidates below show what's missing before entry.</div>`;
+  html += `<div class="grid">${todays.map(chit).join('')}</div>`;
+  wrap.innerHTML = html;
+}
+
+function renderPositions(){
+  const open = RECS.filter(r=>r.status==='OPEN')
+                   .sort((a,b)=>a.date<b.date?1:-1);
+  const wrap = $('positionsWrap');
+  if (!open.length){ wrap.innerHTML = `<div class="banner">No open positions. A-grade signals become open positions automatically after each scan; close them here with your actual exit price.</div>`; return; }
+  wrap.innerHTML = `<table><thead><tr>
+    <th>Symbol</th><th>Horizon</th><th>Signal date</th><th>Entry</th><th>Stop</th><th>Target</th>
+    <th>Max gain</th><th>Max drawdown</th><th></th></tr></thead><tbody>` +
+    open.map(r=>`<tr>
+      <td><b>${r.symbol}</b><br><span style="font-size:11px;color:var(--slate)">${r.sector||''}</span></td>
+      <td>${r.holdingPeriod||'5-10 days'}</td>
+      <td class="num">${r.date}</td>
+      <td class="num">${Number(r.closePrice).toFixed(2)}</td>
+      <td class="num neg">${Number(r.stopLoss).toFixed(2)}</td>
+      <td class="num pos">${Number(r.target).toFixed(2)}</td>
+      <td class="num ${ (r.maxGainPct||0)>=0?'pos':''}">${r.maxGainPct!=null?pct(r.maxGainPct):'—'}</td>
+      <td class="num ${ (r.maxDrawdownPct||0)<0?'neg':''}">${r.maxDrawdownPct!=null?pct(r.maxDrawdownPct):'—'}</td>
+      <td><button class="btn" onclick="startClose('${r.id}')">Close</button></td>
+    </tr>`).join('') + `</tbody></table>`;
+}
+
+function startClose(id){
+  closingId = id;
+  const r = RECS.find(x=>x.id===id);
+  $('closeSym').textContent = `Close ${r.symbol} (entry ${rup(r.closePrice)})`;
+  $('exitPrice').value = r.closePrice;
+  $('closeBox').style.display = 'block';
+  $('exitPrice').focus();
+}
+function cancelClose(){ closingId=null; $('closeBox').style.display='none'; }
+async function confirmClose(){ if(window.STATIC_MODE) return;
+  const body = { id: closingId, exitPrice: parseFloat($('exitPrice').value),
+                 status: $('exitStatus').value };
+  const res = await fetch('/api/recommendations/close', {method:'POST',
+    headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)}).then(r=>r.json());
+  toast(res.message); cancelClose(); loadAll();
+}
+
+function renderPerformance(){
+  const closed = RECS.filter(r=>r.status && !['OPEN','WATCH'].includes(r.status) && r.pnlPct!=null);
+  const wrap = $('perfWrap');
+  if (!closed.length){ wrap.innerHTML = `<div class="banner">Nothing closed yet. Performance builds here as positions are exited — the learning loop from your BRD.</div>`; return; }
+  const wins = closed.filter(r=>r.pnlPct>0);
+  const avg = a => a.length ? a.reduce((s,r)=>s+r.pnlPct,0)/a.length : 0;
+  const hold = closed.map(r=>(new Date(r.exitDate)-new Date(r.date))/864e5);
+  const stat = (v,k)=>`<div class="stat"><div class="v">${v}</div><div class="k">${k}</div></div>`;
+  let html = `<div class="stats">` +
+    stat(closed.length,'CLOSED TRADES') +
+    stat(Math.round(wins.length/closed.length*100)+'%','WIN RATE') +
+    stat(pct(avg(closed)),'AVG RETURN') +
+    stat(pct(avg(wins)),'AVG WINNER') +
+    stat(pct(avg(closed.filter(r=>r.pnlPct<=0))),'AVG LOSER') +
+    stat((hold.reduce((a,b)=>a+b,0)/hold.length).toFixed(1)+'d','AVG HOLD') + `</div>`;
+  html += `<table><thead><tr><th>Symbol</th><th>In</th><th>Out</th><th>Entry</th>
+    <th>Exit</th><th>Result</th><th>P&amp;L</th><th>Max gain</th><th>Drawdown</th></tr></thead><tbody>` +
+    closed.sort((a,b)=>a.exitDate<b.exitDate?1:-1).map(r=>`<tr>
+      <td><b>${r.symbol}</b></td>
+      <td class="num">${r.date}</td><td class="num">${r.exitDate}</td>
+      <td class="num">${Number(r.closePrice).toFixed(2)}</td>
+      <td class="num">${Number(r.exitPrice).toFixed(2)}</td>
+      <td style="font-size:12px">${(r.status||'').replace(/_/g,' ').toLowerCase()}${r.closedBy==='manual'?' (you)':''}</td>
+      <td class="num ${r.pnlPct>0?'pos':'neg'}">${pct(r.pnlPct)}</td>
+      <td class="num">${r.maxGainPct!=null?pct(r.maxGainPct):'—'}</td>
+      <td class="num">${r.maxDrawdownPct!=null?pct(r.maxDrawdownPct):'—'}</td>
+    </tr>`).join('') + `</tbody></table>`;
+  wrap.innerHTML = html;
+}
+
+function fillSettings(){ if(window.STATIC_MODE) return;
+  const s = CONFIG.scanner||{}, e = CONFIG.email||{};
+  ['minPrice','maxPrice','minRsi','maxRsi','minVolumeMultiplier','minDeliveryPct','maxRecommendations',
+   'minBreakoutScore','consolidationDays','resistanceLookback','maxDistToBreakoutPct','minAdx','minRsRank','minRiskReward',
+   'capital','riskPerTradePct']
+    .forEach(k=>{ if($(k)) $(k).value = s[k] ?? ''; });
+  const mm = s.minMovePct || {};
+  $('mm2d').value = mm['2d'] ?? 3; $('mm1w').value = mm['1w'] ?? 5;
+  $('mm2w').value = mm['2w'] ?? 10; $('mm1m').value = mm['1m'] ?? 15;
+  $('requireEma200').checked = !!s.requireEma200;
+  $('emailEnabled').checked = !!e.enabled;
+  $('toEmail').value = e.toEmail||''; $('smtpHost').value = e.smtpHost||'';
+  $('smtpPort').value = e.smtpPort||587; $('smtpUser').value = e.smtpUser||'';
+  $('geminiApiKey').value = CONFIG.geminiApiKey||'';
+}
+
+async function saveConfig(ev){ if(window.STATIC_MODE){ev.preventDefault();return;}
+  ev.preventDefault();
+  const cfg = {
+    scanner: {
+      minPrice:+$('minPrice').value, maxPrice:+$('maxPrice').value,
+      minRsi:+$('minRsi').value, maxRsi:+$('maxRsi').value,
+      minVolumeMultiplier:+$('minVolumeMultiplier').value,
+      minDeliveryPct:+$('minDeliveryPct').value,
+      maxRecommendations:+$('maxRecommendations').value,
+      minBreakoutScore:+$('minBreakoutScore').value,
+      consolidationDays:+$('consolidationDays').value,
+      resistanceLookback:+$('resistanceLookback').value,
+      maxDistToBreakoutPct:+$('maxDistToBreakoutPct').value,
+      requireEma200:$('requireEma200').checked,
+      minAdx:+$('minAdx').value,
+      minRsRank:+$('minRsRank').value,
+      minRiskReward:+$('minRiskReward').value,
+      capital:+$('capital').value,
+      riskPerTradePct:+$('riskPerTradePct').value,
+      minMovePct:{'2d':+$('mm2d').value,'1w':+$('mm1w').value,
+                  '2w':+$('mm2w').value,'1m':+$('mm1m').value},
+      trendEma:true, fillWithNearMisses:true,
+    },
+    email: {
+      enabled:$('emailEnabled').checked, toEmail:$('toEmail').value,
+      smtpHost:$('smtpHost').value, smtpPort:+$('smtpPort').value,
+      smtpUser:$('smtpUser').value,
+      smtpPass:(CONFIG.email&&CONFIG.email.smtpPass)||'',
+    },
+    geminiApiKey:$('geminiApiKey').value,
+  };
+  const res = await fetch('/api/config',{method:'POST',
+    headers:{'Content-Type':'application/json'},body:JSON.stringify(cfg)}).then(r=>r.json());
+  toast(res.message); CONFIG = cfg;
+}
+
+async function testEmail(){
+  const res = await fetch('/api/email/test',{method:'POST'}).then(r=>r.json());
+  toast(res.message); $('logs').style.display='block'; watchScan(true);
+}
+
+async function runScan(){ if(window.STATIC_MODE) return;
+  const res = await fetch('/api/recommendations/run',{method:'POST'}).then(r=>r.json());
+  toast(res.message);
+  if (res.success) watchScan();
+}
+
+function watchScan(oneShot){ if(window.STATIC_MODE) return;
+  $('scanBtn').disabled = true; $('scanBtn').textContent = 'Scanning…';
+  $('logs').style.display = 'block';
+  clearInterval(pollTimer);
+  pollTimer = setInterval(async ()=>{
+    const st = await fetch('/api/scanner/status').then(r=>r.json());
+    $('logs').textContent = st.logs.join('\n');
+    $('logs').scrollTop = $('logs').scrollHeight;
+    if (!st.running){
+      clearInterval(pollTimer);
+      $('scanBtn').disabled = false; $('scanBtn').textContent = 'Run scan';
+      if (!oneShot){ toast(st.error ? 'Scan failed — see logs' : 'Scan complete'); loadAll(); }
+    }
+  }, 2500);
+  if (oneShot) setTimeout(()=>{clearInterval(pollTimer);
+    $('scanBtn').disabled=false; $('scanBtn').textContent='Run scan';}, 8000);
+}
+
+loadAll();
+if ('serviceWorker' in navigator && location.protocol !== 'file:')
+  navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body>
+</html>

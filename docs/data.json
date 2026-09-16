@@ -22169,7 +22169,7 @@
       "status": "OPEN",
       "marketMood": "Neutral",
       "maxGainPct": 8.87,
-      "maxDrawdownPct": -6.32
+      "maxDrawdownPct": -7.63
     },
     {
       "id": "AWL-2026-08-25",
@@ -25966,7 +25966,7 @@
       "status": "OPEN",
       "marketMood": "Neutral",
       "maxGainPct": 10.61,
-      "maxDrawdownPct": -0.54
+      "maxDrawdownPct": -3.16
     },
     {
       "id": "IDFCFIRSTB-2026-08-31",
@@ -28771,7 +28771,7 @@
       "status": "OPEN",
       "marketMood": "Neutral",
       "maxGainPct": 0.55,
-      "maxDrawdownPct": -3.09
+      "maxDrawdownPct": -3.3
     },
     {
       "id": "PPLPHARMA-2026-09-03",
@@ -33902,7 +33902,7 @@
       "status": "OPEN",
       "marketMood": "Bearish",
       "maxGainPct": 2.77,
-      "maxDrawdownPct": -2.98
+      "maxDrawdownPct": -4.36
     },
     {
       "id": "MOTHERSON-2026-09-11",
@@ -34557,7 +34557,7 @@
       "status": "OPEN",
       "marketMood": "Bearish",
       "maxGainPct": 5.39,
-      "maxDrawdownPct": -0.78
+      "maxDrawdownPct": -2.1
     },
     {
       "id": "MOTHERSON-2026-09-14",
@@ -35865,16 +35865,659 @@
       "invalidBelow": 234.44,
       "status": "WATCH",
       "marketMood": "Bearish"
+    },
+    {
+      "id": "AEGISVOPAK-2026-09-16",
+      "date": "2026-09-16",
+      "symbol": "AEGISVOPAK",
+      "companyName": "Aegis Vopak Terminals Ltd.",
+      "sector": "Oil Gas & Consumable Fuels",
+      "closePrice": 296.95,
+      "buyZone": "294.0 - 299.9",
+      "stopLoss": 257.82,
+      "target": 362.17,
+      "target1": 362.17,
+      "target2": 401.3,
+      "riskReward": 1.67,
+      "target1Pct": 22.0,
+      "potentialPct": 35.1,
+      "resistance": 311.0,
+      "distToResistancePct": 4.73,
+      "horizon": "1m",
+      "horizonLabel": "1 month",
+      "maxHoldDays": 22,
+      "holdingPeriod": "1 month",
+      "breakoutScore": 85,
+      "confidenceScore": 85,
+      "stars": 4,
+      "gradeLabel": "A",
+      "rsRank": 93.0,
+      "summary": "A (85/100): trading 4.7% below its pivot Rs311.0 after a 10-day base. Volume 1.5x average (P80), delivery 40%, RS Rank 93, weekly and daily trends aligned. About 35.1% upside to T2 at 1.67:1 risk-reward over 1 month.",
+      "scoreBreakdown": [
+        {
+          "label": "RS Rank 93 - market leader",
+          "points": 18.0,
+          "max": 18
+        },
+        {
+          "label": "EMA20 > EMA50 > EMA200 aligned",
+          "points": 15.0,
+          "max": 15
+        },
+        {
+          "label": "Weekly trend aligned (10>30 wEMA)",
+          "points": 12.0,
+          "max": 12
+        },
+        {
+          "label": "At/near new 52w high (95%)",
+          "points": 12.0,
+          "max": 12
+        },
+        {
+          "label": "Accumulation: OBV rising, CMF positive, above anchored VWAP",
+          "points": 12.0,
+          "max": 12
+        },
+        {
+          "label": "Sector among market leaders",
+          "points": 10.0,
+          "max": 10
+        },
+        {
+          "label": "No HH/HL structure",
+          "points": 0.0,
+          "max": 8
+        },
+        {
+          "label": "No contraction pattern (18/18/15%)",
+          "points": 0.0,
+          "max": 5
+        },
+        {
+          "label": "RSI 61 in sweet spot",
+          "points": 4.0,
+          "max": 4
+        },
+        {
+          "label": "Delivery 40%",
+          "points": 2.4,
+          "max": 4
+        }
+      ],
+      "riskRating": "High",
+      "grade": "A",
+      "failedFilters": [],
+      "aiExplanation": "RS Rank 93 - market leader\nEMA20 > EMA50 > EMA200 aligned\nWeekly trend aligned (10>30 wEMA)\nAt/near new 52w high (95%)\nAccumulation: OBV rising, CMF positive, above anchored VWAP\nSector among market leaders\nRSI 61 in sweet spot\nDelivery 40%",
+      "watchUntil": null,
+      "triggerAbove": 311.0,
+      "invalidBelow": 257.82,
+      "status": "OPEN",
+      "marketMood": "Bearish"
+    },
+    {
+      "id": "WELSPUNLIV-2026-09-16",
+      "date": "2026-09-16",
+      "symbol": "WELSPUNLIV",
+      "companyName": "Welspun Living Ltd.",
+      "sector": "Textiles",
+      "closePrice": 202.82,
+      "buyZone": "200.8 - 204.8",
+      "stopLoss": 185.44,
+      "target": 239.34,
+      "target1": 239.34,
+      "target2": 261.25,
+      "riskReward": 2.1,
+      "target1Pct": 18.0,
+      "potentialPct": 28.8,
+      "resistance": 216.0,
+      "distToResistancePct": 6.5,
+      "horizon": "1m",
+      "horizonLabel": "1 month",
+      "maxHoldDays": 22,
+      "holdingPeriod": "1 month",
+      "breakoutScore": 88,
+      "confidenceScore": 88,
+      "stars": 4,
+      "gradeLabel": "A",
+      "rsRank": 98.0,
+      "summary": "A (88/100): trading 6.5% below its pivot Rs216.0 after a 18-day base. Volume 0.6x average (P73), delivery 34%, RS Rank 98, weekly and daily trends aligned. About 28.8% upside to T2 at 2.1:1 risk-reward over 1 month.",
+      "scoreBreakdown": [
+        {
+          "label": "RS Rank 98 - market leader",
+          "points": 18.0,
+          "max": 18
+        },
+        {
+          "label": "EMA20 > EMA50 > EMA200 aligned",
+          "points": 15.0,
+          "max": 15
+        },
+        {
+          "label": "Weekly trend aligned (10>30 wEMA)",
+          "points": 12.0,
+          "max": 12
+        },
+        {
+          "label": "Near 52w high (94%)",
+          "points": 7.2,
+          "max": 12
+        },
+        {
+          "label": "Accumulation: OBV rising, CMF positive, above anchored VWAP",
+          "points": 12.0,
+          "max": 12
+        },
+        {
+          "label": "Sector among market leaders",
+          "points": 10.0,
+          "max": 10
+        },
+        {
+          "label": "Higher highs + higher lows structure",
+          "points": 8.0,
+          "max": 8
+        },
+        {
+          "label": "VCP: contractions 28%->21%->10%, 18d base",
+          "points": 2.2,
+          "max": 5
+        },
+        {
+          "label": "RSI 62 in sweet spot",
+          "points": 4.0,
+          "max": 4
+        },
+        {
+          "label": "Delivery only 34%",
+          "points": 0.0,
+          "max": 4
+        }
+      ],
+      "riskRating": "Medium",
+      "grade": "B",
+      "failedFilters": [
+        "MACD not bullish or improving",
+        "volume below 1.5x average",
+        "delivery 34% below 35%"
+      ],
+      "aiExplanation": "RS Rank 98 - market leader\nEMA20 > EMA50 > EMA200 aligned\nWeekly trend aligned (10>30 wEMA)\nNear 52w high (94%)\nAccumulation: OBV rising, CMF positive, above anchored VWAP\nSector among market leaders\nHigher highs + higher lows structure\nVCP: contractions 28%->21%->10%, 18d base\nRSI 62 in sweet spot",
+      "watchUntil": "2026-09-25",
+      "triggerAbove": 216.0,
+      "invalidBelow": 185.44,
+      "status": "WATCH",
+      "marketMood": "Bearish"
+    },
+    {
+      "id": "MEESHO-2026-09-16",
+      "date": "2026-09-16",
+      "symbol": "MEESHO",
+      "companyName": "Meesho Ltd.",
+      "sector": "Consumer Services",
+      "closePrice": 213.26,
+      "buyZone": "211.1 - 215.4",
+      "stopLoss": 199.49,
+      "target": 251.09,
+      "target1": 251.09,
+      "target2": 273.79,
+      "riskReward": 2.75,
+      "target1Pct": 17.7,
+      "potentialPct": 28.4,
+      "resistance": 223.1,
+      "distToResistancePct": 4.61,
+      "horizon": "1m",
+      "horizonLabel": "1 month",
+      "maxHoldDays": 22,
+      "holdingPeriod": "1 month",
+      "breakoutScore": 86,
+      "confidenceScore": 86,
+      "stars": 4,
+      "gradeLabel": "A",
+      "rsRank": 90.0,
+      "summary": "A (86/100): trading 4.6% below its pivot Rs223.1 after a 26-day base. Volume 0.5x average (P32), delivery 47%, RS Rank 90, weekly and daily trends aligned. About 28.4% upside to T2 at 2.75:1 risk-reward over 1 month.",
+      "scoreBreakdown": [
+        {
+          "label": "RS Rank 90 - market leader",
+          "points": 18.0,
+          "max": 18
+        },
+        {
+          "label": "EMA20 > EMA50 > EMA200 aligned",
+          "points": 15.0,
+          "max": 15
+        },
+        {
+          "label": "Weekly trend aligned (10>30 wEMA)",
+          "points": 12.0,
+          "max": 12
+        },
+        {
+          "label": "Far from 200d high (84%)",
+          "points": 0.0,
+          "max": 12
+        },
+        {
+          "label": "Accumulation: OBV rising, CMF positive, above anchored VWAP",
+          "points": 12.0,
+          "max": 12
+        },
+        {
+          "label": "Sector among market leaders",
+          "points": 10.0,
+          "max": 10
+        },
+        {
+          "label": "Higher highs + higher lows structure",
+          "points": 8.0,
+          "max": 8
+        },
+        {
+          "label": "VCP: contractions 18%->15%->9%, 26d base",
+          "points": 3.0,
+          "max": 5
+        },
+        {
+          "label": "RSI 61 in sweet spot",
+          "points": 4.0,
+          "max": 4
+        },
+        {
+          "label": "Delivery 47%",
+          "points": 4.0,
+          "max": 4
+        }
+      ],
+      "riskRating": "Medium",
+      "grade": "B",
+      "failedFilters": [
+        "MACD not bullish or improving",
+        "volume below 1.5x average"
+      ],
+      "aiExplanation": "RS Rank 90 - market leader\nEMA20 > EMA50 > EMA200 aligned\nWeekly trend aligned (10>30 wEMA)\nAccumulation: OBV rising, CMF positive, above anchored VWAP\nSector among market leaders\nHigher highs + higher lows structure\nVCP: contractions 18%->15%->9%, 26d base\nRSI 61 in sweet spot\nDelivery 47%",
+      "watchUntil": "2026-09-25",
+      "triggerAbove": 223.1,
+      "invalidBelow": 199.49,
+      "status": "WATCH",
+      "marketMood": "Bearish"
+    },
+    {
+      "id": "CANHLIFE-2026-09-16",
+      "date": "2026-09-16",
+      "symbol": "CANHLIFE",
+      "companyName": "Canara HSBC Life Insurance Company Ltd.",
+      "sector": "Financial Services",
+      "closePrice": 153.92,
+      "buyZone": "152.4 - 155.5",
+      "stopLoss": 144.19,
+      "target": 182.68,
+      "target1": 182.68,
+      "target2": 199.94,
+      "riskReward": 2.96,
+      "target1Pct": 18.7,
+      "potentialPct": 29.9,
+      "resistance": 162.9,
+      "distToResistancePct": 5.83,
+      "horizon": "1m",
+      "horizonLabel": "1 month",
+      "maxHoldDays": 22,
+      "holdingPeriod": "1 month",
+      "breakoutScore": 83,
+      "confidenceScore": 83,
+      "stars": 4,
+      "gradeLabel": "A",
+      "rsRank": 76.0,
+      "summary": "A (83/100): trading 5.8% below its pivot Rs162.9 after a 40-day base. Volume 0.5x average (P47), delivery 43%, RS Rank 76, weekly and daily trends aligned. About 29.9% upside to T2 at 2.96:1 risk-reward over 1 month.",
+      "scoreBreakdown": [
+        {
+          "label": "RS Rank 76",
+          "points": 9.0,
+          "max": 18
+        },
+        {
+          "label": "EMA20 > EMA50 > EMA200 aligned",
+          "points": 15.0,
+          "max": 15
+        },
+        {
+          "label": "Weekly trend aligned (10>30 wEMA)",
+          "points": 12.0,
+          "max": 12
+        },
+        {
+          "label": "Near 238d high (92%)",
+          "points": 7.2,
+          "max": 12
+        },
+        {
+          "label": "Accumulation: OBV rising, CMF positive, above anchored VWAP",
+          "points": 12.0,
+          "max": 12
+        },
+        {
+          "label": "Sector among market leaders",
+          "points": 10.0,
+          "max": 10
+        },
+        {
+          "label": "Higher highs + higher lows structure",
+          "points": 8.0,
+          "max": 8
+        },
+        {
+          "label": "VCP: contractions 11%->11%->10%, 40d base",
+          "points": 3.0,
+          "max": 5
+        },
+        {
+          "label": "RSI 54 in sweet spot",
+          "points": 4.0,
+          "max": 4
+        },
+        {
+          "label": "Delivery 43%",
+          "points": 2.4,
+          "max": 4
+        }
+      ],
+      "riskRating": "Medium",
+      "grade": "B",
+      "failedFilters": [
+        "volume below 1.5x average"
+      ],
+      "aiExplanation": "RS Rank 76\nEMA20 > EMA50 > EMA200 aligned\nWeekly trend aligned (10>30 wEMA)\nNear 238d high (92%)\nAccumulation: OBV rising, CMF positive, above anchored VWAP\nSector among market leaders\nHigher highs + higher lows structure\nVCP: contractions 11%->11%->10%, 40d base\nRSI 54 in sweet spot\nDelivery 43%",
+      "watchUntil": "2026-09-25",
+      "triggerAbove": 162.9,
+      "invalidBelow": 144.19,
+      "status": "WATCH",
+      "marketMood": "Bearish"
+    },
+    {
+      "id": "URBANCO-2026-09-16",
+      "date": "2026-09-16",
+      "symbol": "URBANCO",
+      "companyName": "Urban Company Ltd.",
+      "sector": "Consumer Services",
+      "closePrice": 164.56,
+      "buyZone": "162.9 - 166.2",
+      "stopLoss": 141.49,
+      "target": 203.0,
+      "target1": 203.0,
+      "target2": 226.07,
+      "riskReward": 1.67,
+      "target1Pct": 23.4,
+      "potentialPct": 37.4,
+      "resistance": 183.97,
+      "distToResistancePct": 11.8,
+      "horizon": "1m",
+      "horizonLabel": "1 month",
+      "maxHoldDays": 22,
+      "holdingPeriod": "1 month",
+      "breakoutScore": 80,
+      "confidenceScore": 80,
+      "stars": 4,
+      "gradeLabel": "A",
+      "rsRank": 86.0,
+      "summary": "A (80/100): trading 11.8% below its pivot Rs184.0 after a 17-day base. Volume 0.8x average (P88), delivery 34%, RS Rank 86, weekly and daily trends aligned. About 37.4% upside to T2 at 1.67:1 risk-reward over 1 month.",
+      "scoreBreakdown": [
+        {
+          "label": "RS Rank 86",
+          "points": 13.5,
+          "max": 18
+        },
+        {
+          "label": "EMA20 > EMA50 > EMA200 aligned",
+          "points": 15.0,
+          "max": 15
+        },
+        {
+          "label": "Weekly trend aligned (10>30 wEMA)",
+          "points": 12.0,
+          "max": 12
+        },
+        {
+          "label": "89% of 52w high",
+          "points": 3.6,
+          "max": 12
+        },
+        {
+          "label": "Accumulation: OBV rising, CMF positive, above anchored VWAP",
+          "points": 12.0,
+          "max": 12
+        },
+        {
+          "label": "Sector among market leaders",
+          "points": 10.0,
+          "max": 10
+        },
+        {
+          "label": "Higher highs + higher lows structure",
+          "points": 8.0,
+          "max": 8
+        },
+        {
+          "label": "VCP: contractions 28%->25%->16%, 17d base",
+          "points": 2.2,
+          "max": 5
+        },
+        {
+          "label": "RSI 54 in sweet spot",
+          "points": 4.0,
+          "max": 4
+        },
+        {
+          "label": "Delivery only 34%",
+          "points": 0.0,
+          "max": 4
+        }
+      ],
+      "riskRating": "High",
+      "grade": "B",
+      "failedFilters": [
+        "MACD not bullish or improving",
+        "volume below 1.5x average",
+        "delivery 34% below 35%"
+      ],
+      "aiExplanation": "RS Rank 86\nEMA20 > EMA50 > EMA200 aligned\nWeekly trend aligned (10>30 wEMA)\n89% of 52w high\nAccumulation: OBV rising, CMF positive, above anchored VWAP\nSector among market leaders\nHigher highs + higher lows structure\nVCP: contractions 28%->25%->16%, 17d base\nRSI 54 in sweet spot",
+      "watchUntil": "2026-09-25",
+      "triggerAbove": 183.97,
+      "invalidBelow": 141.49,
+      "status": "WATCH",
+      "marketMood": "Bearish"
+    },
+    {
+      "id": "HFCL-2026-09-16",
+      "date": "2026-09-16",
+      "symbol": "HFCL",
+      "companyName": "HFCL Ltd.",
+      "sector": "Telecommunication",
+      "closePrice": 226.27,
+      "buyZone": "224.0 - 228.5",
+      "stopLoss": 195.03,
+      "target": 278.34,
+      "target1": 278.34,
+      "target2": 309.58,
+      "riskReward": 1.67,
+      "target1Pct": 23.0,
+      "potentialPct": 36.8,
+      "resistance": 256.7,
+      "distToResistancePct": 13.45,
+      "horizon": "1m",
+      "horizonLabel": "1 month",
+      "maxHoldDays": 22,
+      "holdingPeriod": "1 month",
+      "breakoutScore": 75,
+      "confidenceScore": 75,
+      "stars": 3,
+      "gradeLabel": "B",
+      "rsRank": 100.0,
+      "summary": "B (75/100): trading 13.4% below its pivot Rs256.7 after a 10-day base. Volume 0.9x average (P24), delivery 48%, RS Rank 100, weekly and daily trends aligned. About 36.8% upside to T2 at 1.67:1 risk-reward over 1 month.",
+      "scoreBreakdown": [
+        {
+          "label": "RS Rank 100 - market leader",
+          "points": 18.0,
+          "max": 18
+        },
+        {
+          "label": "EMA20 above EMA50",
+          "points": 9.0,
+          "max": 15
+        },
+        {
+          "label": "Weekly trend aligned (10>30 wEMA)",
+          "points": 12.0,
+          "max": 12
+        },
+        {
+          "label": "88% of 52w high",
+          "points": 3.6,
+          "max": 12
+        },
+        {
+          "label": "Accumulation: OBV rising, CMF positive, above anchored VWAP",
+          "points": 12.0,
+          "max": 12
+        },
+        {
+          "label": "Sector among market leaders",
+          "points": 10.0,
+          "max": 10
+        },
+        {
+          "label": "No HH/HL structure",
+          "points": 0.0,
+          "max": 8
+        },
+        {
+          "label": "VCP: contractions 33%->25%->15%, 10d base",
+          "points": 2.2,
+          "max": 5
+        },
+        {
+          "label": "RSI 51 in sweet spot",
+          "points": 4.0,
+          "max": 4
+        },
+        {
+          "label": "Delivery 48%",
+          "points": 4.0,
+          "max": 4
+        }
+      ],
+      "riskRating": "High",
+      "grade": "B",
+      "failedFilters": [
+        "MACD not bullish or improving",
+        "volume below 1.5x average"
+      ],
+      "aiExplanation": "RS Rank 100 - market leader\nEMA20 above EMA50\nWeekly trend aligned (10>30 wEMA)\n88% of 52w high\nAccumulation: OBV rising, CMF positive, above anchored VWAP\nSector among market leaders\nVCP: contractions 33%->25%->15%, 10d base\nRSI 51 in sweet spot\nDelivery 48%",
+      "watchUntil": "2026-09-25",
+      "triggerAbove": 256.7,
+      "invalidBelow": 195.03,
+      "status": "WATCH",
+      "marketMood": "Bearish"
+    },
+    {
+      "id": "PPLPHARMA-2026-09-16",
+      "date": "2026-09-16",
+      "symbol": "PPLPHARMA",
+      "companyName": "Piramal Pharma Ltd.",
+      "sector": "Healthcare",
+      "closePrice": 202.37,
+      "buyZone": "200.3 - 204.4",
+      "stopLoss": 200.52,
+      "target": 240.37,
+      "target1": 240.37,
+      "target2": 263.17,
+      "riskReward": 20.54,
+      "target1Pct": 18.8,
+      "potentialPct": 30.0,
+      "resistance": 231.93,
+      "distToResistancePct": 14.61,
+      "horizon": "1m",
+      "horizonLabel": "1 month",
+      "maxHoldDays": 22,
+      "holdingPeriod": "1 month",
+      "breakoutScore": 73,
+      "confidenceScore": 73,
+      "stars": 3,
+      "gradeLabel": "B",
+      "rsRank": 90.0,
+      "summary": "B (73/100): trading 14.6% below its pivot Rs231.9 after a 31-day base. Volume 0.7x average (P42), delivery 47%, RS Rank 90, weekly and daily trends aligned. About 30.0% upside to T2 at 20.54:1 risk-reward over 1 month.",
+      "scoreBreakdown": [
+        {
+          "label": "RS Rank 90 - market leader",
+          "points": 18.0,
+          "max": 18
+        },
+        {
+          "label": "EMA20 above EMA50",
+          "points": 9.0,
+          "max": 15
+        },
+        {
+          "label": "Weekly trend aligned (10>30 wEMA)",
+          "points": 12.0,
+          "max": 12
+        },
+        {
+          "label": "87% of 52w high",
+          "points": 3.6,
+          "max": 12
+        },
+        {
+          "label": "Accumulation: OBV rising, above anchored VWAP",
+          "points": 8.4,
+          "max": 12
+        },
+        {
+          "label": "Sector among market leaders",
+          "points": 10.0,
+          "max": 10
+        },
+        {
+          "label": "Higher highs + higher lows structure",
+          "points": 8.0,
+          "max": 8
+        },
+        {
+          "label": "No contraction pattern (16/15/15%)",
+          "points": 0.0,
+          "max": 5
+        },
+        {
+          "label": "RSI 42 outside range",
+          "points": 0.0,
+          "max": 4
+        },
+        {
+          "label": "Delivery 47%",
+          "points": 4.0,
+          "max": 4
+        }
+      ],
+      "riskRating": "Medium",
+      "grade": "B",
+      "failedFilters": [
+        "RSI 42 outside 50-70",
+        "MACD not bullish or improving",
+        "volume below 1.5x average"
+      ],
+      "aiExplanation": "RS Rank 90 - market leader\nEMA20 above EMA50\nWeekly trend aligned (10>30 wEMA)\n87% of 52w high\nAccumulation: OBV rising, above anchored VWAP\nSector among market leaders\nHigher highs + higher lows structure\nDelivery 47%",
+      "watchUntil": "2026-09-25",
+      "triggerAbove": 231.93,
+      "invalidBelow": 200.52,
+      "status": "WATCH",
+      "marketMood": "Bearish"
     }
   ],
   "lastScan": {
-    "date": "2026-09-15",
+    "date": "2026-09-16",
     "mood": "Bearish",
     "aiTokens": null,
-    "passed": 0,
+    "passed": 1,
     "shown": 7,
     "topSector": "Textiles",
     "weakSector": "Realty",
-    "at": "2026-09-15T17:39:03"
+    "at": "2026-09-16T17:35:53"
   }
 }
